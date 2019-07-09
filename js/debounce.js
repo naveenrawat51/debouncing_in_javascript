@@ -46,9 +46,9 @@ fetch("https://jsonplaceholder.typicode.com/users")
   })
   .catch(error => console.log(error));
 
-  
+
   // to Search all the profiles
-  let searchProfile = () => {
+  let userProfile = () => {
       let allMainCardDiv = mainDiv.getElementsByClassName("cardParent");
       let searchText = document.getElementById("myInput").value.toLowerCase();
       
@@ -62,3 +62,17 @@ fetch("https://jsonplaceholder.typicode.com/users")
           }
       }
   }
+
+  // Throttle function which returns the closure of setimeout and clears if pressed before the delayed time
+  let throttle = (fn, delay) =>{
+    let timer;
+    return () => {
+    clearTimeout(timer);
+      timer = setTimeout(()=> {
+            fn();
+        }, delay)
+    }
+  }
+
+
+  let searchProfile = throttle(userProfile, 300)
